@@ -2,8 +2,11 @@
 # # I had to run this docker network create --gateway 172.16.1.1 --subnet 172.16.1.0/24 sprint
 version: "3.4"
 networks:
- skynet:
-   external: true
+  skynet:
+   driver: bridge
+   ipam:
+     driver: default
+     config: [{subnet: 172.16.1.0/24}]
 services:
   proxy:
    container_name: proxy
@@ -11,15 +14,21 @@ services:
    ports:
     - "443:443"
     - "80:80"
-   networks:
-     skynet:
-        ipv4_address: 172.16.1.1
    environment:
      - "PROXY_ENV=144.226.138.17"
-  client:
-   image: client
-   restart: always
+   extra_hosts:
+     - "demo.pacman.com:172.16.1.10"
    networks:
      skynet:
-        ipv4_address: 172.16.1.2
+        ipv4_address: 172.16.1.10
+
+  client:
+   container_name: client
+   image: client
+   restart: always
+   extra_hosts:
+     - "demo.pacman.com:172.16.1.10"
+   networks:
+     skynet:
+        ipv4_address: 172.16.1.20
 
