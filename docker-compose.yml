@@ -1,0 +1,25 @@
+# Run as: docker-compose.yml
+# # I had to run this docker network create --gateway 172.16.1.1 --subnet 172.16.1.0/24 sprint
+version: "3.4"
+networks:
+ skynet:
+   external: true
+services:
+  proxy:
+   container_name: proxy
+   image: proxy
+   ports:
+    - "443:443"
+    - "80:80"
+   networks:
+     skynet:
+        ipv4_address: 172.16.1.1
+   environment:
+     - "PROXY_ENV=144.226.138.17"
+  client:
+   image: client
+   restart: always
+   networks:
+     skynet:
+        ipv4_address: 172.16.1.2
+
