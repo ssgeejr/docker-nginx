@@ -15,7 +15,8 @@ connect to the client and test the proxy redirect
 ```
 docker exec -ti client /bin/bash
 ping demo.pacman.com
-culr -L demo.packman.com
+curl -L demo.packman.com
+curl -L donutsdontlie.com
 ```
 
 Note: You will need to use the '-L' flag for curl in order for it to follow the redirect (pain in the ass to debug if you aren't aware of this little trick)

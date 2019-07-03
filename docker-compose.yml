@@ -17,6 +17,7 @@ services:
    environment:
      - "PROXY_ENV=144.226.138.17"
    extra_hosts:
+     - "donutsdontlie.com:172.16.1.10"
      - "demo.pacman.com:172.16.1.10"
    networks:
      skynet:
@@ -28,6 +29,7 @@ services:
    restart: always
    extra_hosts:
      - "demo.pacman.com:172.16.1.10"
+     - "donutsdontlie.com:172.16.1.10"
    networks:
      skynet:
         ipv4_address: 172.16.1.20
